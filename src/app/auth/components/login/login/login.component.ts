@@ -37,10 +37,15 @@ export class LoginComponent {
             this.loginSuccess();
             this.router.navigate(['/product']);
           },
-          error:(message) => {
+          error:(error) => {
+            console.log('Error en login: ', error);
             this.loginFailed();
           }
         });
+    }
+    else {
+      this.infoIncomplete();
+      console.log('Formulario inválido');
     }
   }
 
@@ -55,7 +60,7 @@ export class LoginComponent {
   loginFailed(){
     Swal.fire({
       icon: "error",
-      title: "Lamentamos informarle que el registro ha fallado. Por favor, verifique los datos ingresados y vuelva a intentarlo",
+      title: "Lo sentimos, no se pudo iniciar sesión. Por favor, revise sus credenciales e intente de nuevo.",
       showConfirmButton: false,
       timer: 5000
     });
@@ -78,41 +83,4 @@ export class LoginComponent {
       timer: 5000
     });
   }
-
 }
-
-/*
-*
-*
-    const passwordHash = this.formRegister.get('passwordHash')?.value;
-    const confirmPassword = this.formRegister.get('confirmPassword')?.value;
-    this.passwordMatchValidator(passwordHash, confirmPassword);
-
-    if (this.formRegister.valid) {
-      // Mapear el formulario a LoginRequest
-      const userRequest: UserRequest = {}
-        identityDocument: this.formRegister.get('identityDocument')?.value || '',
-        fullName: this.formRegister.get('fullName')?.value || '',
-        lastName: this.formRegister.get('lastName')?.value || '',
-        email: this.formRegister.get('email')?.value || '',
-        passwordHash: this.formRegister.get('passwordHash')?.value || ''
-      };
-
-      console.log('LoginRequest mapeado:', userRequest);
-      // Aquí puedes enviar el loginRequest a tu servicio de autenticación
-      this.userService.registerUser(userRequest)
-        .subscribe({
-          next:() => {
-            this.registerUserSuccess()
-            this.router.navigate(['/auth/login'])
-          },
-          error:(message)=>{
-            this.registerUserFailed();
-          }
-        })
-    } else {
-      this.infoIncomplete();
-      console.log('Formulario inválido');
-    }
-*
-* **/
