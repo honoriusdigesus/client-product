@@ -1,8 +1,9 @@
 import {Component, inject} from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
-import {LoginRequest} from "../../interfaces/login-request.interface";
-import { AbstractControl } from '@angular/forms';
+import {Router, RouterLink} from "@angular/router";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {UserRequest} from "../interfaces/user-request.interface";
+import { UserService } from '../services/user.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -16,6 +17,9 @@ import { AbstractControl } from '@angular/forms';
 })
 export class RegisterComponent {
   private formBuilder = inject(FormBuilder);
+  private userService = inject(UserService);
+  private router = inject(Router);
+
   formRegister: FormGroup;
 
   constructor() {
@@ -30,14 +34,14 @@ export class RegisterComponent {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-  onSubmit() {
+  registerUser() {
     const passwordHash = this.formRegister.get('passwordHash')?.value;
     const confirmPassword = this.formRegister.get('confirmPassword')?.value;
     this.passwordMatchValidator(passwordHash, confirmPassword);
 
     if (this.formRegister.valid) {
       // Mapear el formulario a LoginRequest
-      const loginRequest: LoginRequest = {
+      const userRequest: UserRequest = {
         identityDocument: this.formRegister.get('identityDocument')?.value || '',
         fullName: this.formRegister.get('fullName')?.value || '',
         lastName: this.formRegister.get('lastName')?.value || '',
@@ -45,9 +49,20 @@ export class RegisterComponent {
         passwordHash: this.formRegister.get('passwordHash')?.value || ''
       };
 
-      console.log('LoginRequest mapeado:', loginRequest);
+      console.log('LoginRequest mapeado:', userRequest);
       // Aquí puedes enviar el loginRequest a tu servicio de autenticación
+      this.userService.registerUser(userRequest)
+        .subscribe({
+          next:() => {
+            this.registerUserSuccess()
+            this.router.navigate(['/auth/login'])
+          },
+          error:(message)=>{
+            this.registerUserFailed();
+          }
+        })
     } else {
+      this.infoIncomplete();
       console.log('Formulario inválido');
     }
   }
@@ -68,5 +83,31 @@ export class RegisterComponent {
     }
   }
 
+  registerUserFailed(){
+    Swal.fire({
+      icon: "error",
+      title: "Lamentamos informarle que el registro ha fallado. Por favor, verifique los datos ingresados y vuelva a intentarlo",
+      showConfirmButton: false,
+      timer: 5000
+    });
+}
+
+  registerUserSuccess(){
+    Swal.fire({
+      icon: "success",
+      title: "Su registro se ha completado exitosamente",
+      showConfirmButton: false,
+      timer: 3000
+    });
+  }
+
+  infoIncomplete(){
+    Swal.fire({
+      icon: "warning",
+      title: "Por favor valida que todos los campos estén diligenciados",
+      showConfirmButton: false,
+      timer: 5000
+    });
+  }
 }
 

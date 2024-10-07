@@ -8,11 +8,11 @@ export const routes: Routes = [
     children:[
       {
         path: 'auth/login',
-        loadComponent: () => import('./auth/components/login/login.component').then(c => c.LoginComponent)
+        loadComponent: () => import('./auth/components/login/login/login.component').then(c => c.LoginComponent)
       },
       {
         path: 'auth/register',
-        loadComponent: () => import('./auth/components/register/register.component').then(c => c.RegisterComponent)
+        loadComponent: () => import('./auth/components/user/register/register.component').then(c => c.RegisterComponent)
       },
       {
         path: '',
