@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css"
+        rel="stylesheet"
+        rel="stylesheet">
+</head>
+<body class="bg-white rounded-lg py-5">
+<div class="container flex flex-col mx-auto bg-white rounded-lg pt-12 my-5">
+  <div class="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
+    <div class="flex items-center justify-center w-full lg:p-12">
+      <div class="flex items-center xl:p-10">
+        <form class="flex flex-col w-full h-full pb-6 text-center bg-white rounded-3xl">
+          <h3 class="mb-3 text-4xl font-extrabold text-dark-grey-900">Sign In</h3>
+          <p class="mb-4 text-grey-700">Introduce tu correo electrónico y contraseña.</p>
+
+          <label class="mb-2 text-sm text-start text-grey-900" for="email">Email*</label>
+          <input class="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-blue-100 mb-7 placeholder:text-gray-500 bg-blue-50 text-dark-blue-500 rounded-2xl" id="email" name="email" placeholder="mail@loopple.com"
+                 required
+                 type="email"/>
+          <label class="mb-2 text-sm text-start text-grey-900" for="password">Password*</label>
+          <input class="flex items-center w-full px-5 py-4 mr-2 text-sm font-medium outline-none focus:bg-blue-100 mb-7 placeholder:text-gray-500 bg-blue-50 text-dark-blue-500 rounded-2xl"  id="password" name="password" placeholder="Enter a password"
+                 required
+                 type="password"/>
+          <div class="flex flex-row justify-end mb-8">
+
+            <a class="mr-4 text-sm font-bold text-blue-500" href="javascript:void(0)">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button
+            class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-blue-500 transition duration-300 md:w-96 rounded-2xl border-2 border-blue-300 hover:bg-blue-500 hover:text-white focus:ring-4 focus:ring-blue-100 bg-white"
+            type="submit">
+            Sign In
+          </button>
+          <p class="text-sm leading-relaxed text-grey-700">¿Aún no estás registrado?
+            <a class="font-bold text-blue-500" routerLink="/auth/register">Crea una cuenta</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<html>
