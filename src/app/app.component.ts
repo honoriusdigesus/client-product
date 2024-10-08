@@ -1,5 +1,8 @@
+import {computed, effect, inject} from '@angular/core';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterOutlet } from '@angular/router';
+import { LoginService } from './auth/components/login/services/login.service';
+import {AuthStatus} from "./auth/components/login/interfaces/auth-status.enum";
 
 @Component({
   selector: 'app-root',
@@ -9,5 +12,32 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'client-product';
+
+  private loginService = inject(LoginService);
+  private router = inject(Router);
+
+
+  public finishAuthCheck = computed<boolean>(()=>{
+    if (this.loginService.authStatus() === AuthStatus.checking) {
+      return false;
+    }
+    return true;
+  })
+
+  public loginStatusChangeEffect = effect(()=>{
+    switch( this.loginService.authStatus() ) {
+
+      case AuthStatus.checking:
+        return;
+
+      case AuthStatus.authenticated:
+        this.router.navigateByUrl('/product');
+        return;
+
+      case AuthStatus.notAuthenticated:
+        this.router.navigateByUrl('/auth/login');
+        return;
+    }
+  })
+
 }
