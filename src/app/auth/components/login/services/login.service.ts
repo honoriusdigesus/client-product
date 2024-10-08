@@ -7,6 +7,8 @@ import {LoginResponse} from "../interfaces/login-response.interface";
 import {AuthStatus} from '../interfaces/auth-status.enum';
 import {UserLoginResponse} from "../interfaces/user-login-response.interface";
 import {CheckResponse} from "../interfaces/check-response.interface";
+import {routes} from "../../../../app.routes";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class LoginService {
 
   private readonly baseUrl = environment.baseUrl;
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   private _currentUser = signal<UserLoginResponse | null>(null);
   private _authStatus = signal<AuthStatus>(AuthStatus.checking);
@@ -67,6 +70,12 @@ export class LoginService {
           return of(false);
         })
       )
+  }
+
+  onLogout(){
+    this._currentUser.set(null);
+    this._authStatus.set(AuthStatus.notAuthenticated);
+    localStorage.removeItem('token');
   }
 
   constructor() {

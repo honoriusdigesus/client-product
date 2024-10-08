@@ -18,6 +18,8 @@ export class ProductLayoutComponent {
   private loginService = inject(LoginService);
   public user = computed(() => this.loginService.currentUser());
 
-
+  onLogout(){
+    this.loginService.onLogout();
+  }
 
 }
