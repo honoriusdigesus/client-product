@@ -30,7 +30,6 @@ export class LoginComponent {
         email: this.formLogin.get('email')?.value || '',
         password: this.formLogin.get('password')?.value || ''
       }
-      this.infoIncomplete();
       this.loginService.login(loginRequest)
         .subscribe({
           next:() => {
@@ -44,8 +43,8 @@ export class LoginComponent {
         });
     }
     else {
-      this.infoIncomplete();
       console.log('Formulario inválido');
+      this.infoIncomplete();
     }
   }
 

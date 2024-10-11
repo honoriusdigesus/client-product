@@ -1,0 +1,29 @@
+/* Estilos personalizados */
+body {
+  background-color: #f0f4ff; /* Fondo claro */
+}
+
+.sidebar {
+  background-color: #1e3a8a; /* Azul oscuro */
+  color: #ffffff; /* Texto blanco */
+}
+
+.sidebar a {
+  color: #e0f2fe; /* Azul claro */
+}
+
+.sidebar a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efecto hover */
+}
+
+.sidebar h1, .sidebar p {
+  color: #ffffff; /* Títulos en blanco */
+}
+
+.sidebar a.active {
+  background-color: #3b82f6; /* Azul resaltado */
+}
+
+.sidebar svg {
+  fill: #e0f2fe; /* Iconos en azul claro */
+}

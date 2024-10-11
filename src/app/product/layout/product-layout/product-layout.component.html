@@ -1,6 +1,13 @@
-<h1>Product</h1>
-<hr>
-<h2>User</h2>
-<pre>{{ user() | json }}</pre>
 
-<button (click)="onLogout()">Cerrar sesión</button>
+<div class="flex bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white">
+  <div class="flex relative w-screen">
+
+    <product-sidemenu></product-sidemenu>
+
+    <div class="text-black px-2 mt-2 w-full">
+      <h1>Product Dashboard</h1>
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>
